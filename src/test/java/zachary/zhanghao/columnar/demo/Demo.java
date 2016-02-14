@@ -1,0 +1,121 @@
+/**
+ * 
+ */
+package zachary.zhanghao.columnar.demo;
+
+import java.util.List;
+
+import org.apache.hadoop.hbase.util.Bytes;
+
+import zachary.zhanghao.columnar.config.DataSourceConfig;
+import zachary.zhanghao.columnar.exception.ColumnarClientException;
+import zachary.zhanghao.columnar.funciton.ColumnarAdmin;
+import zachary.zhanghao.columnar.funciton.ColumnarClient;
+import zachary.zhanghao.columnar.hbase.HBaseColumnarAdmin;
+import zachary.zhanghao.columnar.hbase.HBaseColumnarClient;
+import zachary.zhanghao.columnar.hbase.HBaseSource;
+import zachary.zhanghao.columnar.hbase.PageBean;
+
+/**
+ * 
+ * @author zachary.zhang
+ *
+ */
+public class Demo {
+
+    public static void main(String[] args) {
+        try {
+            ColumnarClient client = constructClient();
+
+            putObject(client);
+
+            findObject(client);
+
+            findObjectRange(client);
+
+            findObjectListByPage(client);
+
+            client.deleteObject(Bytes.toBytes(1), User.class);
+
+            long count = client.count(null, null, User.class);
+            System.out.println(count + " rows data in user table");
+
+            long sum = client.countAndSum(null, null, User.class, "age");
+            System.out.println("the sum of age column value is  :" + sum);
+
+
+            // create table
+            ColumnarAdmin hbaseAdmin = constructAdmin();
+            hbaseAdmin.createTable("hbase_client", "t", "t1", "t2");
+
+            // delete table
+            hbaseAdmin.deleteTable("hbase_client");
+
+
+
+        } catch (ColumnarClientException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void findObjectListByPage(ColumnarClient client) throws ColumnarClientException {
+        PageBean<User> pageBean = new PageBean<User>() {};
+        pageBean.setStartRow(Bytes.toBytes(1));
+        pageBean.setStopRow(Bytes.toBytes(20));
+        pageBean.setPageSize(10);
+
+        while ((pageBean = client.findObjectListByPage(pageBean)).getDataSet().size() > 0) {
+
+            // List<User> dataSet = pageBean.getDataSet();
+            System.out.println("current page is:" + pageBean.getCurrentPage() + ", data size:"
+                            + pageBean.getDataSet().size());
+        }
+    }
+
+    private static void findObjectRange(ColumnarClient client) throws ColumnarClientException {
+        List<User> findObjectList =
+                        client.findObjectList(Bytes.toBytes(1), Bytes.toBytes(4), User.class);
+
+        System.out.println("the users count is:" + findObjectList.size());
+    }
+
+    private static void findObject(ColumnarClient client) throws ColumnarClientException {
+        User findObject = client.findObject(Bytes.toBytes(1), User.class);
+        System.out.println(findObject.getUserName());
+        System.out.println(findObject.getId());
+    }
+
+    private static void putObject(ColumnarClient client) throws ColumnarClientException {
+
+        for (int i = 1; i < 21; i++) {
+            User user = new User();
+            user.setId(i);
+            user.setUserId(123);
+            // user.setUserName("zhangsan");
+            user.setAge(25L);
+            client.putObject(user);
+        }
+    }
+
+    private static ColumnarClient constructClient() throws ColumnarClientException {
+        int scanCaching = 200;
+        int scanBatch = 100;
+        ColumnarClient client = new HBaseColumnarClient(scanCaching, scanBatch);
+
+        DataSourceConfig config = new DataSourceConfig("hbase.properties");
+
+        HBaseSource source = new HBaseSource(config.getProperties());
+
+        client.setHBaseSource(source);
+        return client;
+    }
+
+    public static ColumnarAdmin constructAdmin() throws ColumnarClientException {
+        ColumnarAdmin adminClient = new HBaseColumnarAdmin();
+        DataSourceConfig config = new DataSourceConfig("hbase.properties");
+        HBaseSource source = new HBaseSource(config.getProperties());
+
+        adminClient.setHBaseSource(source);
+        return adminClient;
+    }
+}
