@@ -10,9 +10,9 @@ one word,you can use HBase like use hibernate.
 
 
 demo:</br>
-1.just annotate the @Table,@RowKey,@Column in your pojo
+1.just annotate the @Table,@RowKey,@Column in your pojo</br>
 
-  @Table(name = "user")
+  @Table(name = "user")</br>
   public class User {
   
       @RowKey
