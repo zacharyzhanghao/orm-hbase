@@ -9,7 +9,8 @@ an ORM framework for operating hbase easily. It worked like Hibernate,you can ju
 one word,you can use HBase like use hibernate.
 
 
-demo:</br>
+### Demo:
+only 2 steps</br></br>
 1.just annotate the @Table,@RowKey,@Column in your pojo</br>
 
   @Table(name = "user")</br>
