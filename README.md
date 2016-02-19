@@ -9,7 +9,7 @@ an ORM framework for operating hbase easily. It worked like Hibernate,you can ju
 one word,you can use HBase like use hibernate.
 
 
-demo:
+demo:</br>
 1.just annotate the @Table,@RowKey,@Column in your pojo
 
   @Table(name = "user")
@@ -28,7 +28,7 @@ demo:
       private long age;
   }
 
-2.   use HBaseColumnarClient instance to handle the po.
+2.use HBaseColumnarClient instance to handle the po,like below code</br>
 
       HBaseColumnarClient client = new HBaseColumnarClient(scanCaching, scanBatch);
       DataSourceConfig config = new DataSourceConfig("hbase.properties");
