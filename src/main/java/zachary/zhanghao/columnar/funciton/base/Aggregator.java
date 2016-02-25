@@ -60,7 +60,7 @@ public interface Aggregator {
      * @return
      * @throws ColumnarClientException
      */
-    long countAndSum(byte[] startRow, byte[] endRow, Class<?> po, String propertyName)
+    long sum(byte[] startRow, byte[] endRow, Class<?> po, String propertyName)
                     throws ColumnarClientException;
 
     /**
@@ -78,6 +78,6 @@ public interface Aggregator {
      * @return
      * @throws ColumnarClientException
      */
-    public long countAndSum(byte[] startRow, byte[] endRow, Class<?> po, String propertyName,
+    public long sum(byte[] startRow, byte[] endRow, Class<?> po, String propertyName,
                     Filter... filter) throws ColumnarClientException;
 }

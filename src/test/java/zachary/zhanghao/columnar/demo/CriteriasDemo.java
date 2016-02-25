@@ -1,20 +1,21 @@
 /**
  * 
  */
-package com.testbird.artisan.hbaseclient.demo;
+package zachary.zhanghao.columnar.demo;
 
 import java.util.List;
 
 import org.apache.hadoop.hbase.filter.Filter;
 import org.apache.hadoop.hbase.util.Bytes;
 
+import zachary.zhanghao.columnar.config.DataSourceConfig;
+import zachary.zhanghao.columnar.exception.ColumnarClientException;
+import zachary.zhanghao.columnar.hbase.Criteria;
+import zachary.zhanghao.columnar.hbase.HBaseColumnarClient;
+import zachary.zhanghao.columnar.hbase.HBaseSource;
+import zachary.zhanghao.columnar.hbase.PageBean;
+
 import com.google.common.collect.Lists;
-import com.testbird.artisan.columnar.config.DataSourceConfig;
-import com.testbird.artisan.columnar.exception.ColumnarClientException;
-import com.testbird.artisan.columnar.hbase.Criteria;
-import com.testbird.artisan.columnar.hbase.HBaseColumnarClient;
-import com.testbird.artisan.columnar.hbase.HBaseSource;
-import com.testbird.artisan.columnar.hbase.PageBean;
 
 /**
  * @author zachary.zhang

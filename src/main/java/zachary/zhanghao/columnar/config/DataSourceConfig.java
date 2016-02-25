@@ -24,11 +24,7 @@ public class DataSourceConfig {
 
     public DataSourceConfig(String configFile) throws ColumnarClientException {
         this.configFile = configFile;
-        init();
-    }
 
-
-    private void init() throws ColumnarClientException {
         // 路径中包含中文的需要处理
         String temp = this.getClass().getResource("/").getPath() + this.configFile;
         try (InputStream inputStream = new FileInputStream(URLDecoder.decode(temp, "utf-8"))) {
@@ -41,6 +37,7 @@ public class DataSourceConfig {
             throw new ColumnarClientException(e);
         }
     }
+
 
     public Properties getProperties() {
         return this.properties;

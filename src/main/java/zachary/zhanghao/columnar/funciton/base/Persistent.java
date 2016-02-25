@@ -22,9 +22,6 @@ public interface Persistent {
 
     <T> void putObjectList(List<T> poList) throws ColumnarClientException;
 
-    // public void updateObject(Class<? extends RowKey> oldPo,Class<? extends RowKey> newPo);
-    // public void updateObjectList(List<Class<? extends RowKey>> oldPoList,List<Class<? extends
-    // RowKey>> newPoList)
     <T> T findObject(byte[] rowKey, Class<T> type) throws ColumnarClientException;
 
     <T> List<T> findObjectList(List<byte[]> rowKeyList, Class<T> type)

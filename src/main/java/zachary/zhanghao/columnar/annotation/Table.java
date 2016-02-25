@@ -23,7 +23,7 @@ public @interface Table {
      * 
      * @return
      */
-    public String name() default "";
+    String name() default "";
 
 
 }

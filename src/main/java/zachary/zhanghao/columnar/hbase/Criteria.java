@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.testbird.artisan.columnar.hbase;
+package zachary.zhanghao.columnar.hbase;
 
 import java.util.List;
 
@@ -11,10 +11,11 @@ import lombok.Setter;
 
 import org.apache.hadoop.hbase.filter.Filter;
 
+import zachary.zhanghao.columnar.exception.ColumnarClientException;
+import zachary.zhanghao.columnar.funciton.base.Aggregator;
+import zachary.zhanghao.columnar.funciton.base.Persistent;
+
 import com.google.common.base.Preconditions;
-import com.testbird.artisan.columnar.exception.ColumnarClientException;
-import com.testbird.artisan.columnar.funciton.base.Aggregator;
-import com.testbird.artisan.columnar.funciton.base.Persistent;
 
 /**
  * supply Criterias function to operate data(CRUD),like JPA or Hibernate QBC

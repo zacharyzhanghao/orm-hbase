@@ -27,7 +27,9 @@ import org.apache.hadoop.hbase.util.Bytes;
 
 import zachary.zhanghao.columnar.annotation.Column;
 import zachary.zhanghao.columnar.exception.ColumnarClientException;
-import zachary.zhanghao.columnar.funciton.ColumnarClient;
+import zachary.zhanghao.columnar.funciton.base.Aggregator;
+import zachary.zhanghao.columnar.funciton.base.HBaseSourceAware;
+import zachary.zhanghao.columnar.funciton.base.Persistent;
 import zachary.zhanghao.columnar.utils.HBaseUtils;
 
 import com.google.common.base.CaseFormat;
@@ -39,14 +41,11 @@ import com.google.common.collect.Lists;
  *
  */
 @Slf4j
-public class HBaseColumnarClient implements ColumnarClient {
+public class HBaseColumnarClient implements Aggregator, Persistent, HBaseSourceAware {
 
     private static final int PAGE_SIZE_NO_LIMIT = -1;
     private HBaseSource hbaseSource;
     private int scanCaching = 100;// default cache in scan
-
-    // TODO will use it future
-    @SuppressWarnings("unused")
     private int scanBatch = 100;// default batch in scan
 
     public HBaseColumnarClient() {}
@@ -86,13 +85,13 @@ public class HBaseColumnarClient implements ColumnarClient {
     }
 
     @Override
-    public long countAndSum(byte[] startRow, byte[] endRow, Class<?> po, String propertyName)
+    public long sum(byte[] startRow, byte[] endRow, Class<?> po, String propertyName)
                     throws ColumnarClientException {
-        return countAndSum(startRow, endRow, po, propertyName, new Filter[] {});
+        return sum(startRow, endRow, po, propertyName, new Filter[] {});
     }
 
     @Override
-    public long countAndSum(byte[] startRow, byte[] endRow, Class<?> po, String propertyName,
+    public long sum(byte[] startRow, byte[] endRow, Class<?> po, String propertyName,
                     Filter... filter) throws ColumnarClientException {
         try {
             Scan scan = constructScan(startRow, endRow, filter);

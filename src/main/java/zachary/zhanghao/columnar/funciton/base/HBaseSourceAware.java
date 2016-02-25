@@ -1,9 +1,9 @@
 /**
  * 
  */
-package com.testbird.artisan.columnar.funciton.base;
+package zachary.zhanghao.columnar.funciton.base;
 
-import com.testbird.artisan.columnar.hbase.HBaseSource;
+import zachary.zhanghao.columnar.hbase.HBaseSource;
 
 /**
  * 提供对HBaseSource的操作功能
