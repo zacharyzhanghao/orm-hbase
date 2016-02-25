@@ -12,19 +12,21 @@ import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import zachary.zhanghao.columnar.exception.ColumnarClientException;
-import zachary.zhanghao.columnar.funciton.ColumnarAdmin;
+import zachary.zhanghao.columnar.funciton.base.HBaseSourceAware;
+import zachary.zhanghao.columnar.funciton.base.Schema;
 
 /**
  * @author zachary.zhang
  *
  */
 @Slf4j
-public class HBaseColumnarAdmin implements ColumnarAdmin {
+public class HBaseColumnarAdmin implements Schema, HBaseSourceAware {
 
     private HBaseSource source;
 
     @Override
-    public void createTable(String tableName, String... columnFamily) throws ColumnarClientException {
+    public void createTable(String tableName, String... columnFamily)
+                    throws ColumnarClientException {
 
         try (HBaseAdmin admin = this.source.getHBaseAdmin()) {// auto close hbaseadmin
             HTableDescriptor tableDesc = new HTableDescriptor(TableName.valueOf(tableName));

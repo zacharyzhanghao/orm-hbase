@@ -3,10 +3,10 @@
  */
 package zachary.zhanghao.columnar.demo;
 
-import lombok.Data;
 import zachary.zhanghao.columnar.annotation.Column;
 import zachary.zhanghao.columnar.annotation.RowKey;
 import zachary.zhanghao.columnar.annotation.Table;
+import lombok.Data;
 
 /**
  * @author zachary.zhang

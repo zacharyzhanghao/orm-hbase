@@ -23,12 +23,12 @@ public @interface Column {
      * 
      * @return
      */
-    public String family() default "";
+    String family() default "";
 
     /**
      * hbase column name
      * 
      * @return
      */
-    public String name() default "";
+    String name() default "";
 }

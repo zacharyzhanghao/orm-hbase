@@ -168,7 +168,8 @@ public class HBaseUtils {
 
     public static <T> T wrapResult(Class<T> type, Result result) throws ColumnarClientException {
         Result[] results = {result};
-        return wrapResultList(type, results).get(0);
+        List<T> resultList = wrapResultList(type, results);
+        return resultList.size() > 0 ? resultList.get(0) : null;
     }
 
     public static <T> List<T> wrapResultList(Class<T> type, Result[] results)
@@ -238,7 +239,7 @@ public class HBaseUtils {
 
         ColumnDefinition rowKeyColumn = extractRowKeyColumn(po.getClass(), columnInfoList);
         try {
-            Object object = rowKeyColumn.getField().get(po);
+            Object object = rowKeyColumn.getRowKey().get(po);
 
             return resolveToBytes(rowKeyColumn.getFieldType(), object);
         } catch (IllegalArgumentException | IllegalAccessException e) {
