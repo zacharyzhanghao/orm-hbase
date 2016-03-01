@@ -4,8 +4,9 @@ an ORM framework for operating hbase easily. It worked like Hibernate,you can ju
 ### some features:
 1. annotate the PO with @Table/@Column/@RowKey, it can automatically mapping your hbase table
 2. supply CRUD function:create,research,update,delete
-3. supply query data by page(pagination)
-4. supply Criteria style to operate hbase like hibernate Criteria
+3. supply aggregator function:sum,count (need config org.apache.hadoop.hbase.coprocessor.AggregateImplementation coprocessor in hbase)
+4. supply query data by page(pagination)
+5. supply Criteria style to operate hbase like hibernate Criteria
 
 one word,you can use HBase like use hibernate.
 
