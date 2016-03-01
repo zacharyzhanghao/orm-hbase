@@ -46,6 +46,9 @@ public class HBaseColumnarClient implements Aggregator, Persistent, HBaseSourceA
     private static final int PAGE_SIZE_NO_LIMIT = -1;
     private HBaseSource hbaseSource;
     private int scanCaching = 100;// default cache in scan
+
+    // TODO use it in future
+    @SuppressWarnings("unused")
     private int scanBatch = 100;// default batch in scan
 
     public HBaseColumnarClient() {}
